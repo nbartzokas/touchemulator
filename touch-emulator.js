@@ -115,7 +115,7 @@
      * @param ev
      */
     function preventMouseEvents(ev) {
-        if (!options.enableMouseEvents){
+        if ( !options.prevent || options.prevent.includes(ev.type) ){
             ev.preventDefault();
             ev.stopPropagation();
         }
@@ -298,7 +298,7 @@
             return;
         }
 
-        options = _options || {};
+        options = _options || options;
 
         fakeTouchSupport();
 
