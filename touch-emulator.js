@@ -5,6 +5,7 @@
     var multiTouchStartPos;
     var eventTarget;
     var touchElements = {};
+    var options = {};
 
     // polyfills
     if(!document.createTouch) {
@@ -114,8 +115,10 @@
      * @param ev
      */
     function preventMouseEvents(ev) {
-        ev.preventDefault();
-        ev.stopPropagation();
+        if (!options.enableMouseEvents){
+            ev.preventDefault();
+            ev.stopPropagation();
+        }
     }
 
     /**
@@ -290,10 +293,12 @@
     /**
      * TouchEmulator initializer
      */
-    function TouchEmulator() {
+    function TouchEmulator(_options) {
         if (hasTouchSupport()) {
             return;
         }
+
+        options = _options || {};
 
         fakeTouchSupport();
 
